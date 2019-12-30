@@ -1,10 +1,20 @@
-let app2=document.querySelector("#app");
+const div1=document.createElement('div');
+div1.innerHTML='1'
+const div2=document.createElement('div');
+div2.innerHTML='2'
+const div3=document.createElement('div');
+div3.innerHTML='3'
+const div4=document.createElement('div');
+div4.innerHTML='4'
 
-let children=app2.children
-let arr=[]
-let keys=Object.keys(children)
-for(let key in keys)
-  arr.push(children[key])
+const routeTable={
+  '1':div1,
+  '2':div2,
+  '3':div3,
+  '4':div4,
+}
+
+const app=document.querySelector('#app');
 
 route();
 
@@ -13,16 +23,15 @@ function route(){
   let num=window.location.hash.substr(1);
   num=num||1;
 
-  arr.forEach((item)=>{
-    item.style.display='none';
-  })
-  document.querySelector('#div404').style.display='none';
-
-  let div2=document.querySelector(`#div${num}`);
+  // 根据路由表获取对应div
+  let div=routeTable[num];
 
   // 404路由('#90'为404情况,'#'为默认路由,注意区别)
-  div2=div2||document.querySelector('#div404');
-  div2.style.display='block';
+  div=div||document.querySelector('#div404');
+  div.style.display='block';
+
+  app.innerHTML=null;
+  app.appendChild(div)
 }
 
 window.addEventListener('hashchange',route)
