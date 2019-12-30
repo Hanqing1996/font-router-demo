@@ -20,10 +20,10 @@ route();
 
 function route(){
   // 默认路由
-  let num=window.location.hash.substr(1);
+  let num=window.location.pathname.substr(1);
+  console.log(num);
   num=num||1;
 
-  // 根据路由表获取对应div
   let div=routeTable[num];
 
   // 404路由('#90'为404情况,'#'为默认路由,注意区别)
