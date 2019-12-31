@@ -16,16 +16,25 @@ const routeTable={
 
 const app=document.querySelector('#app');
 
+const allA=document.querySelectorAll('a.link');
+for(let a of allA){
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const href=a.getAttribute('href');
+    window.history.pushState(null,`page ${href}`,href);
+    // 通知
+    onStateChange(route);
+  })
+}
+
 route();
 
 function route(){
   // 默认路由
   let num=window.location.pathname.substr(1);
-  console.log(num);
   num=num||1;
 
   let div=routeTable[num];
-
   // 404路由('#90'为404情况,'#'为默认路由,注意区别)
   div=div||document.querySelector('#div404');
   div.style.display='block';
@@ -34,4 +43,6 @@ function route(){
   app.appendChild(div)
 }
 
-window.addEventListener('hashchange',route)
+function onStateChange(callback){
+  callback();
+}
