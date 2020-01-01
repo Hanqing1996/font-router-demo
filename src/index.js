@@ -10,11 +10,11 @@ const div5=document.createElement('div');
 div5.innerHTML='5'
 
 const routeTable={
-  '1':div1,
-  '2':div2,
-  '3':div3,
-  '4':div4,
-  '5':div5
+  '/1':div1,
+  '/2':div2,
+  '/3':div3,
+  '/4':div4,
+  '/5':div5
 }
 
 const app=document.querySelector('#app');
@@ -25,6 +25,7 @@ for(let a of allA){
     e.preventDefault();
     const href=a.getAttribute('href');
     window.history.pushState(null,`page ${href}`,href);
+    window.localStorage.setItem('xxx',href)
     // 通知
     onStateChange(route);
   })
@@ -35,8 +36,11 @@ route();
 function route(){
 
   // 默认路由
-  let num=window.location.pathname.substr(1);
-  num=num||1;
+  let num=window.localStorage.getItem('xxx')
+  console.log(num)
+
+  if(num=='/')
+    num=1;
 
   let div=routeTable[num];
   // 404路由('#90'为404情况,'#'为默认路由,注意区别)
