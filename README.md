@@ -37,8 +37,8 @@ baidu.com
 
 #### 两种模式对比 
 ```
-<a href="#1">go to 1</a> // hash模式
-<a href="/1">go to 1</a> // history模式
+<a href="#1">go to 1</a> // hash模式，浏览器不会跳转页面
+<a href="/1">go to 1</a> // history模式，浏览器会默认跳转页面
 ```
 
 #### memory模式
