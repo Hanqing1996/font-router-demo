@@ -7,6 +7,9 @@
 * 作用
 更改浏览器中的url，并修改页面内容。不会向后端发起请求(即url的改变不引起刷新,当然了,用户手动刷新是我们阻挡不了的)。
 
+#### 刷新页面意味着什么?
+> 向后端（服务器）发送了请求
+
 #### hash模式
 1. 任何情况下都能做前端路由
 2. 作用
@@ -50,12 +53,28 @@ baidu.com
 5. 对于hash模式,不会有上述烦恼，因为浏览器在发送请求时会默认把#后面的内容吞掉，所以"http://www.abc.com#1"下执行刷新等价于"http://www.abc.com"。也就是说后端没有必要登记前端路由，反正传给服务器的都长一个样。
 
 
-
-
-
-
-
-
+#### window.history.pushState();
+1. [文档](https://developer.mozilla.org/zh-CN/docs/Web/API/History_API)
+2. 作用是修改 url 内容
+2. 与 e.preventDefault(); 搭配在一起，在 history 模式下实现前端路由
+```
+<a class="link" href="/1">go to 1</a>
+<a class="link" href="/2">go to 2</a>
+<a class="link" href="/3">go to 3</a>
+```
+```
+for(let a of allA){
+  a.addEventListener('click',e=>{
+    // 阻止a标签的默认行为（页面跳转）
+    e.preventDefault();
+    const href=a.getAttribute('href');
+    // 修改 url 
+    window.history.pushState(null,`page ${href}`,href);
+    // 根据 url 动态渲染页面内容
+    onStateChange(route);
+  })
+}
+```
 
 
 
